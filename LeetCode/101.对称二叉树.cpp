@@ -18,33 +18,35 @@
  */
 class Solution
 {
+private:
+    bool isSame(TreeNode* p, TreeNode* q) {
+      if (p == nullptr) return q == nullptr;
+      if (q == nullptr) return p == nullptr;
+      if (p -> val != q -> val) return false;
+      return isSame(p -> left, q -> right) && isSame(p -> right, q -> left);
+    }
 public:
-    bool isSymmetric(TreeNode *root)
-    {
-        if (root == NULL)
-            return true;
-        queue<TreeNode *> q1, q2;
-        q1.push(root->left);
-        q2.push(root->right);
-        while (!q1.empty() && !q2.empty())
-        {
-            TreeNode *t1 = q1.front();
-            q1.pop();
-            TreeNode *t2 = q2.front();
-            q2.pop();
-            if (t1 == NULL && t2 != NULL || t1 != NULL && t2 == NULL)
+    bool isSymmetric(TreeNode *root) {
+        if (root == nullptr) return true;
+        queue<TreeNode*> q1, q2;
+        q1.push(root -> left);
+        q2.push(root -> right);
+        while (!q1.empty() && !q2.empty()) {
+            TreeNode* f1 = q1.front(); q1.pop();
+            TreeNode* f2 = q2.front(); q2.pop();
+            if ((f1 == nullptr && f2 != nullptr) || (f1 != nullptr && f2 == nullptr))
                 return false;
-            if (t1 != NULL && t2 != NULL)
-            {
-                if (t1->val != t2->val)
+            if (f1 != nullptr && f2 != nullptr) {
+                if (f1 -> val != f2 -> val)
                     return false;
-                q1.push(t1->left);
-                q1.push(t1->right);
-                q2.push(t2->right);
-                q2.push(t2->left);
-            }
-        }
-        return true;
+                q1.push(f1 -> left);
+                q2.push(f2 -> right);
+                q1.push(f1 -> right);
+                q2.push(f2 -> left);    
+            }            
+       }
+       return true;
+
     }
 };
 // @lc code=end

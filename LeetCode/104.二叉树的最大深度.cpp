@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=100 lang=cpp
+ * @lc app=leetcode.cn id=104 lang=cpp
  *
- * [100] 相同的树
+ * [104] 二叉树的最大深度
  */
 
 // @lc code=start
@@ -18,11 +18,8 @@
  */
 class Solution {
 public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-     if (p == nullptr) return q == nullptr;
-     if (q == nullptr) return p == nullptr;
-     if (p -> val != q -> val) return false;
-     return isSameTree(p -> left, q -> left) && isSameTree(p -> right, q -> right);
+    int maxDepth(TreeNode* root) {
+        return root == nullptr ? 0 : max(maxDepth(root -> left), maxDepth(root -> right)) + 1;
     }
 };
 // @lc code=end
