@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=112 lang=cpp
+ * @lc app=leetcode.cn id=563 lang=cpp
  *
- * [112] 路径总和
+ * [563] 二叉树的坡度
  */
 
 // @lc code=start
@@ -18,10 +18,17 @@
  */
 class Solution {
 public:
-    bool hasPathSum(TreeNode* root, int targetSum) {
-        if (root == nullptr) return false;
-        if (!(root -> left) && !(root -> right)) return (root -> val) == targetSum;
-        return hasPathSum(root -> left, targetSum - (root -> val)) || hasPathSum(root -> right, targetSum - (root -> val));       
+    int ans = 0;
+    int nodeTilt(TreeNode* root) {
+        if (root == nullptr) return 0;
+        int ls = nodeTilt(root -> left);
+        int rs = nodeTilt(root -> right);
+        ans += abs(ls - rs);
+        return root -> val + rs + ls;
+    }
+    int findTilt(TreeNode* root) {
+        nodeTilt(root);
+        return ans;
     }
 };
 // @lc code=end

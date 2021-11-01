@@ -19,7 +19,7 @@ void solve() {
 
     int i, j;
     for (i = 0; i < VALUE; i++)                         // 遍历物品
-        for (j = type[i]; j <= MONEY; j++)              // 遍历价值
+        for (j = type[i]; j <= MONEY; j++)              // 遍历价值 j = MONEY; j >= type[i]; j--
             dp[j] = min(dp[j], dp[j - type[i]] + 1);    // 状态转移
         
         
