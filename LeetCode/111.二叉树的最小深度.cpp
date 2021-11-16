@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=226 lang=cpp
+ * @lc app=leetcode.cn id=111 lang=cpp
  *
- * [226] 翻转二叉树
+ * [111] 二叉树的最小深度
  */
 
 // @lc code=start
@@ -18,12 +18,11 @@
  */
 class Solution {
 public:
-    TreeNode* invertTree(TreeNode* root) {
-      if (!root) return NULL;
-      TreeNode* tmp = root -> left;
-      root -> left = invertTree(root -> right);
-      root -> right = invertTree(tmp);
-      return root;
+    int minDepth(TreeNode* root) {
+        if (!root) return 0;
+        int lh = minDepth(root -> left);
+        int rh = minDepth(root -> right);
+        return !lh ? rh + 1 : (!rh ? lh + 1 : min(lh, rh) + 1);
     }
 };
 // @lc code=end

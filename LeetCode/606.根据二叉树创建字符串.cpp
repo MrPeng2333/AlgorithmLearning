@@ -20,14 +20,28 @@ class Solution {
 public:
     string tree2str(TreeNode* root) {
         if (!root) return "";
+        string res = "";
+        res += to_string(root -> val);
         if (root -> right) {
-            if (root -> left) return to_string(root -> val) + "(" + tree2str(root -> left) + ")" + "(" + tree2str(root -> right) + ")";
-            else return to_string(root -> val) + "()" + "(" + tree2str(root -> right) + ")";
+            if (root -> left) {
+                res += "(";
+                res += tree2str(root -> left);
+                res += ")(";
+                res += tree2str(root -> right);
+                res += ")";
+            } else {
+                res += "()(";
+                res += tree2str(root -> right);
+                res += ")";
+            }
+        } else {
+            if (root -> left) {
+                res += "(";
+                res += tree2str(root ->left);
+                res += ")";
+            }
         }
-        else {
-            if (root -> left) return to_string(root -> val) + "(" + tree2str(root -> left) + ")";
-            else return to_string(root -> val);
-        }
+        return res;    
     }
 };
 // @lc code=end

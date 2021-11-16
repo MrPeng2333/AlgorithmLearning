@@ -18,23 +18,20 @@
  */
 class Solution {
 private:
-    bool ans;
-    int isBalancedByDeepth(TreeNode* root) {
-      if (root == nullptr) return 0;
-      if (ans == false) return 0;
-      int lh = isBalancedByDeepth(root -> left);
-      int rh = isBalancedByDeepth(root -> right);
-      if (abs(lh - rh) > 1) {
-          ans = false;
-          return 0;
-      }
-      return max(lh, rh) + 1;
-            
-    }
+    
 public:
+    bool ans = true;
+    int check(TreeNode* root) {
+        if (!root) return 0;
+        if (!ans) return 0;
+        int lh = check(root -> left);
+        int rh = check(root -> right);
+        if (abs(lh - rh) > 1) ans = false;
+        return max(lh, rh) + 1;
+
+    }
     bool isBalanced(TreeNode* root) {
-        ans = true;
-        isBalancedByDeepth(root);
+        check(root);
         return ans;
     }
 };

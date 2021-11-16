@@ -19,18 +19,18 @@
 class Solution {
 
 public:
+    
     int diff = INT_MAX;
-    TreeNode* prev = nullptr;
-    void dfs(TreeNode* root) {
-        if (root == nullptr) return;
-        dfs(root -> left);
-        if (prev) diff = min(diff, abs(prev -> val - root -> val));
-        prev = root;
-        dfs(root -> right);
-
+    TreeNode* pre = NULL;
+    void check(TreeNode* root) {
+        if (!root) return;
+        check(root -> left);
+        if (pre && root -> val - pre -> val < diff) diff = (root -> val) - (pre -> val);
+        pre = root;
+        check(root -> right);
     }
     int getMinimumDifference(TreeNode *root) {
-        dfs(root);
+        check(root);
         return diff;
     }
 };

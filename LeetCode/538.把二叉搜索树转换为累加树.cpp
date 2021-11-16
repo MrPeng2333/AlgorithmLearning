@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=226 lang=cpp
+ * @lc app=leetcode.cn id=538 lang=cpp
  *
- * [226] 翻转二叉树
+ * [538] 把二叉搜索树转换为累加树
  */
 
 // @lc code=start
@@ -18,12 +18,17 @@
  */
 class Solution {
 public:
-    TreeNode* invertTree(TreeNode* root) {
-      if (!root) return NULL;
-      TreeNode* tmp = root -> left;
-      root -> left = invertTree(root -> right);
-      root -> right = invertTree(tmp);
-      return root;
+    int prevSum = 0;
+    void inorderTraversal(TreeNode* root) {
+       if (!root) return;
+       inorderTraversal(root -> right);
+       prevSum += root -> val;
+       root -> val = prevSum;
+       inorderTraversal(root -> left);
+    }
+    TreeNode* convertBST(TreeNode* root) {
+        inorderTraversal(root);
+        return root;
     }
 };
 // @lc code=end

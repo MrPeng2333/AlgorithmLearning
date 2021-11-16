@@ -19,31 +19,33 @@
 class Solution {
 public:
     bool findTarget(TreeNode* root, int k) {
-       stack<TreeNode*> s1, s2;
-       TreeNode* tmp1 = root;
-       TreeNode* tmp2 = root;
-
+        stack<TreeNode*> s1, s2;
+        TreeNode* t1 = root;
+        TreeNode* t2 = root;
         while (1) {
-            while (tmp1) {
-                s1.push(tmp1);
-                tmp1 = tmp1 -> left;
+            while (t1) {
+                s1.push(t1);
+                t1 = t1 -> left;
             }
-            while (tmp2) {
-                s2.push(tmp2);
-                tmp2 = tmp2 -> right;
+            while (t2) {
+                s2.push(t2);
+                t2 = t2 -> right;
             }
             if (s1.empty() || s2.empty()) break;
-            tmp1 = s1.top(); 
-            tmp2 = s2.top(); 
-            if ((tmp1 -> val + tmp2 -> val) == k && tmp1 != tmp2) return true;
-            else if ((tmp1 -> val + tmp2 -> val) < k) {
+            t1 = s1.top();
+            t2 = s2.top();
+            int sum = t1 -> val + t2 -> val;
+            if (sum == k) {
+                if (t1 == t2) return false;
+                return true;
+            } else if (sum < k) {
+                t1 = t1 -> right;
                 s1.pop();
-                tmp1 = tmp1 -> right;
-                tmp2 = NULL;
+                t2 = NULL;
             } else {
+                t2 = t2 -> left;
                 s2.pop();
-                tmp2 = tmp2 -> left;
-                tmp1 = NULL;
+                t1 = NULL;
             }
         }
         return false;

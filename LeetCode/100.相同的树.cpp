@@ -19,10 +19,10 @@
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-     if (p == nullptr) return q == nullptr;
-     if (q == nullptr) return p == nullptr;
-     if (p -> val != q -> val) return false;
-     return isSameTree(p -> left, q -> left) && isSameTree(p -> right, q -> right);
+       if (!p) return q == NULL;
+       if (!q) return p == NULL;
+       if (p -> val != q -> val) return false;
+       return isSameTree(p -> left, q -> left) && isSameTree(p -> right, q -> right);
     }
 };
 // @lc code=end

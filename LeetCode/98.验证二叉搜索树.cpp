@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=226 lang=cpp
+ * @lc app=leetcode.cn id=98 lang=cpp
  *
- * [226] 翻转二叉树
+ * [98] 验证二叉搜索树
  */
 
 // @lc code=start
@@ -18,12 +18,14 @@
  */
 class Solution {
 public:
-    TreeNode* invertTree(TreeNode* root) {
-      if (!root) return NULL;
-      TreeNode* tmp = root -> left;
-      root -> left = invertTree(root -> right);
-      root -> right = invertTree(tmp);
-      return root;
+    TreeNode* prev = NULL;
+    bool isValidBST(TreeNode* root) {
+        if (!root) return true;
+        bool l = isValidBST(root -> left);
+        if (prev && prev -> val >= root -> val) return false;
+        prev = root;
+        bool r = isValidBST(root -> right);
+        return l && r;
     }
 };
 // @lc code=end

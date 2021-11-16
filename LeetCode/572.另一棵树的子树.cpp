@@ -18,15 +18,18 @@
  */
 class Solution {
 public:
-    bool isSame(TreeNode* root, TreeNode* subRoot) {
-        if (root == nullptr || subRoot == nullptr) return root == nullptr && subRoot == nullptr;
-        if (root -> val != subRoot -> val) return false;
-        return isSame(root -> left, subRoot -> left) && isSame(root -> right, subRoot -> right);
+    bool res = false;
+    bool isSame(TreeNode* p, TreeNode* q) {
+        if (!q) return p == NULL;
+        if (!p) return q == NULL;
+        if (p -> val != q -> val) return false;
+        return isSame(p -> left, q -> left) && isSame(p -> right, q -> right);
     }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if (root == nullptr) return false;
-        if (root -> val == subRoot -> val) return isSame(root, subRoot) ? true : isSubtree(root -> left, subRoot) || isSubtree(root -> right, subRoot);
-        else return isSubtree(root -> left, subRoot) || isSubtree(root -> right, subRoot);
+        if (!root) return false;
+        if (root -> val == subRoot -> val) res = isSame(root, subRoot);
+        if (res) return res;
+        return isSubtree(root -> left, subRoot) || isSubtree(root -> right, subRoot);
     }
 };
 // @lc code=end
