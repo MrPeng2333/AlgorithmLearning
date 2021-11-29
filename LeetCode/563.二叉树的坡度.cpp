@@ -19,15 +19,16 @@
 class Solution {
 public:
     int res = 0;
-    int check(TreeNode* root) {
+    int traverse(TreeNode* root) {
         if (!root) return 0;
-        int ls = check(root -> left);
-        int rs = check(root -> right);
-        res += abs(ls - rs);
-        return ls + rs + root -> val;
+        int ls = traverse(root ->left);
+        int rs = traverse(root -> right);
+        int diff = abs(ls - rs);
+        res += diff;
+        return root -> val + ls + rs;
     }
     int findTilt(TreeNode* root) {
-        check(root);
+        traverse(root);
         return res;
     }
 };

@@ -18,17 +18,19 @@
  */
 class Solution {
 public:
-    int res = 0;
-    int check(TreeNode* root) {
+    int traverse(TreeNode* root, int &diameter) {
         if (!root) return 0;
-        int lh = check(root -> left);
-        int rh = check(root -> right);
-        if (lh + rh > res) res = lh + rh;
-        return max(lh, rh) + 1;  
+        int lh = traverse(root -> left, diameter);
+        int rh = traverse(root -> right, diameter);
+        int newDiameter = lh + rh;
+        diameter = max(diameter, newDiameter);
+        return max(lh, rh) + 1;
+
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        check(root);
-        return res;    
+        int diameter = 0;
+        traverse(root, diameter);
+        return diameter;
     }
 };
 // @lc code=end

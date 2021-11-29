@@ -3,6 +3,6 @@ using namespace std;
 
 
 int main() {
-    cout << "test Run" << endl;
+    printf("result: %d\n", (-5 & 6));
     return 0;
 }

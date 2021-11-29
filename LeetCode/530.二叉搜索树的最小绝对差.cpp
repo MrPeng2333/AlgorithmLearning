@@ -17,20 +17,21 @@
  * };
  */
 class Solution {
-
 public:
-    
-    int diff = INT_MAX;
-    TreeNode* pre = NULL;
-    void check(TreeNode* root) {
+    void traverse(TreeNode* root, int &diff, TreeNode* &prev) {
         if (!root) return;
-        check(root -> left);
-        if (pre && root -> val - pre -> val < diff) diff = (root -> val) - (pre -> val);
-        pre = root;
-        check(root -> right);
+        traverse(root -> left, diff, prev);
+        if (prev) {
+            int newDiff = root -> val - prev -> val;
+            diff = min(diff, newDiff);
+        }
+        prev = root;
+        traverse(root -> right, diff, prev);
     }
     int getMinimumDifference(TreeNode *root) {
-        check(root);
+        TreeNode* prev = NULL;
+        int diff = 1e5 + 10;
+        traverse(root, diff, prev);
         return diff;
     }
 };

@@ -20,19 +20,19 @@ class Solution {
 private:
     
 public:
-    bool ans = true;
-    int check(TreeNode* root) {
-        if (!root) return 0;
-        if (!ans) return 0;
-        int lh = check(root -> left);
-        int rh = check(root -> right);
-        if (abs(lh - rh) > 1) ans = false;
-        return max(lh, rh) + 1;
-
+    int check(TreeNode* root, bool &isBalance) {
+       if (!root) return 0;
+       if (!isBalance) return 0;
+       int lh = check(root -> left, isBalance);
+       int rh = check(root -> right, isBalance);
+       int diff = abs(lh -rh);
+       if (diff > 1) isBalance = false;
+       return max(lh, rh) + 1;
     }
     bool isBalanced(TreeNode* root) {
-        check(root);
-        return ans;
+        bool isBalance = true;
+        check(root, isBalance);
+        return isBalance;
     }
 };
 // @lc code=end

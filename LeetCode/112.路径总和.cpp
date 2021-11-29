@@ -20,10 +20,10 @@ class Solution {
 public:
     
     bool hasPathSum(TreeNode* root, int targetSum) {
-        if (!root) return false;
-        if (!(root -> left) && !(root -> right) && root -> val == targetSum) return true;
-        int nextSum = targetSum - root -> val;
-        return hasPathSum(root -> left, nextSum) || hasPathSum(root -> right, nextSum);
+       if (!root) return false;
+       if (!(root -> left) && !(root -> right) && root -> val == targetSum) return true;
+       int nextSum = targetSum - root -> val;
+       return hasPathSum(root -> left, nextSum) || hasPathSum(root -> right, nextSum);
     }
 };
 // @lc code=end
