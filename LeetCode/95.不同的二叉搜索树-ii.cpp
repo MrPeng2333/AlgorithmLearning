@@ -24,21 +24,18 @@ public:
            res.push_back(nullptr);
            return res;
        }
-       if (start == end) {
-           res.push_back(new TreeNode(start));
-           return res;
-       }
-       vector<TreeNode*> left, right;
        for (int i = start; i <= end; i++) {
-           left = genTrees(start, i - 1);
-           right = genTrees(i + 1, end);
-           for (TreeNode* lnode : left) {
-               for (TreeNode* rnode : right) {
-                   TreeNode* root = new TreeNode(i);
-                   root -> left = lnode;
-                   root -> right = rnode;
-                   res.push_back(root);
-               }
+           
+           vector<TreeNode*> leftRes = genTrees(start, i - 1);
+           vector<TreeNode*> rightRes = genTrees(i + 1, end);
+           for (TreeNode* lnode : leftRes) {
+                
+                for (TreeNode* rnode : rightRes) {
+                    TreeNode* root = new TreeNode(i);
+                    root -> left = lnode;
+                    root -> right = rnode;
+                    res.push_back(root);
+                }
            }
        }
        return res;
