@@ -19,14 +19,13 @@
 class Solution {
 public:
     TreeNode* build(int poEnd, int inStart, int inEnd, vector<int> &inorder, vector<int> &postorder) {
-        if (inStart > inEnd) return nullptr;
+        if (inStart > inEnd) return NULL;
         TreeNode* root = new TreeNode(postorder[poEnd]);
         int index;
         for (int i = inStart; i <= inEnd; i++)
-            if (postorder[poEnd] == inorder[i])
-                index = i;
-        root -> right = build(poEnd - 1, index + 1, inEnd, inorder, postorder);
+            if (inorder[i] == root ->val) index = i;
         root -> left = build(poEnd - inEnd + index - 1, inStart, index - 1, inorder, postorder);
+        root -> right = build(poEnd - 1, index + 1, inEnd, inorder, postorder);
         return root;
     }
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
