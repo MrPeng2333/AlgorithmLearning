@@ -19,17 +19,14 @@
 class Solution {
 public:
     TreeNode* buildT(int preStart, int inStart, int inEnd, vector<int> &preorder, vector<int> &inorder) {
-        if (inStart > inEnd) return nullptr;
-        //if (inStart == inEnd) return new TreeNode(preorder[preStart]);
-        int index;
-        for (int i = inStart; i <= inEnd; i++)
-            if (preorder[preStart] == inorder[i])
-                index = i;
+        if (inStart > inEnd) return NULL;
         TreeNode* root = new TreeNode(preorder[preStart]);
+        int index;
+        for (int i = inStart; i <= inEnd; i++) 
+            if (inorder[i] == root -> val) index = i;
         root -> left = buildT(preStart + 1, inStart, index - 1, preorder, inorder);
         root -> right = buildT(preStart + index - inStart + 1, index + 1, inEnd, preorder, inorder);
         return root;
-       
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         return buildT(0, 0, preorder.size() - 1, preorder, inorder);
