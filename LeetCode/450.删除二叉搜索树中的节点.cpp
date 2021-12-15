@@ -23,17 +23,17 @@ public:
         return root -> val;
     }
     TreeNode* deleteNode(TreeNode* root, int key) {
-        if (!root) return nullptr;
-        if (key < root -> val) 
-            root -> left = deleteNode(root -> left, key);
-        else if (key > root -> val) 
-            root -> right = deleteNode(root -> right, key);
+        if (!root) return NULL;
+        if (key < root -> val) root -> left = deleteNode(root -> left, key);
+        else if (key > root -> val) root -> right = deleteNode(root -> right, key);
         else {
             if (!(root -> left)) return root -> right;
-            else if (!(root -> right)) return root -> left;
-            int minNode = findMinNode(root -> left);
-            root -> val = minNode;
-            root -> left = deleteNode(root -> left, minNode);
+            if (!(root -> right)) return root -> left;
+            int replaceNodeValue = findMinNode(root -> left);
+            TreeNode* replaceNode = new TreeNode(replaceNodeValue);
+            replaceNode -> left = deleteNode(root -> left, replaceNodeValue);
+            replaceNode -> right = root -> right;
+            root = replaceNode;
         }
         return root;
     }

@@ -18,15 +18,18 @@
  */
 class Solution {
 public:
-    int preIndex = 0, postIndex = 0;
-    TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {
-        TreeNode* root = new TreeNode(preorder[preIndex++]);
-        if (root -> val != postorder[postIndex])
-            root -> left = constructFromPrePost(preorder, postorder);
-        if (root -> val != postorder[postIndex])
-            root -> right = constructFromPrePost(preorder, postorder);
-        postIndex++;
+    int postStart = 0, preStart = 0;
+    TreeNode* constructFromPrePostHelper(vector<int> &preorder, vector<int> &postorder) {
+        TreeNode* root = new TreeNode(preorder[preStart++]);
+        if (root -> val != postorder[postStart])
+            root -> left = constructFromPrePostHelper(preorder, postorder);
+        if (root -> val != postorder[postStart])
+            root -> right = constructFromPrePostHelper(preorder, postorder);
+        postStart++;
         return root;
+    }
+    TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {
+        return constructFromPrePostHelper(preorder, postorder);
     }
 };
 // @lc code=end
